@@ -1,6 +1,6 @@
 Public Function IRCTAXCALC2023(fnsalary, resident, lodged, dependents)
 
-'Sequence will have to go through permutations of the 4 parameters
+'Sequence will have to go through combinations of the 4 parameters
 
 ' w is the fortnightly salary, or fnsalary
 ' x is the residency status, resident
