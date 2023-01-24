@@ -1,0 +1,53 @@
+Public Function IRCTAXCALC2023(fnsalary, resident, lodged, dependents)
+
+'Sequence will have to go through permutations of the 4 parameters
+
+' w is the fortnightly salary, or fnsalary
+' x is the residency status, resident
+' y is the declaration status, or lodged
+' z is the number of dependents, or dependents
+
+
+'First check to determine salarary scale
+If (fnsalary > 0) And (fnsalary <= 769) Then
+'Call functionA
+ElseIf (fnsalary > 1269) And (fnsalary <= 1269) Then
+'Call functionB
+ElseIf (fnsalary > 1269) Then
+'Call functionC
+End If
+
+End Function
+
+'Function A gives the tax liability for salary less than K769.00
+Function funcA(fnsalary, resident, lodged)
+ If (resident Is True) And (lodged Is True) Then
+ 'return 0
+ ElseIf (resident Is False) And ((lodged Is True) Or (lodged Is False)) Then
+ '0.3 * FunctionG(fnsalary)
+ ElseIf (resident Is True) And (lodged Is False) Then
+ '0.42 * FunctionG(fnsalary)
+ End If
+ End Function
+ 
+ Function funcG(fnsalary)
+ 
+ End Function
+ 
+ 'Function B gives the tax liability for salary greater than K769.00 and less than K1269.00
+ Function funcB(fnsalary, resident, lodged, dependents)
+  
+ If (resident Is True) And (lodged Is True) Then
+ 'call funcH(fnsalary, dependents)
+ ElseIf (resident Is False) And ((lodged Is True) Or (lodged Is False)) Then
+ '0.3 * FunctionG(fnsalary)
+ ElseIf (resident Is True) And (lodged Is False) Then
+ '0.42 * FunctionG(fnsalary)
+ End If
+ 
+ End Function
+ 
+ Function funcH(fnsalary, dependents)
+ 
+ End Function
+ 
