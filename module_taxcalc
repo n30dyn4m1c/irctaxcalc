@@ -1,6 +1,7 @@
-Public Function IRCTAXCALC2023(fnsalary, resident, lodged, dependents)
+Public Function IRCTAXCALC2023(fnsalary As Long, resident As Boolean, lodged As Boolean, dependents As Integer) As Long
 
-'Sequence will have to go through combinations of the 4 parameters
+'VBA code written sequentially following whitepaper by Cieran Kelly
+' Author: Neo Malesa, Jan 2023
 
 ' w is the fortnightly salary, or fnsalary
 ' x is the residency status, resident
@@ -8,9 +9,10 @@ Public Function IRCTAXCALC2023(fnsalary, resident, lodged, dependents)
 ' z is the number of dependents, or dependents
 
 
-'First check to determine salarary scale
+'FunctionF
+'Checks fnsalary scale then redirects to sub fns
 If (fnsalary > 0) And (fnsalary <= 769) Then
-'Call functionA
+Call funcA(fnsalary, resident, lodged)
 ElseIf (fnsalary > 1269) And (fnsalary <= 1269) Then
 'Call functionB
 ElseIf (fnsalary > 1269) Then
@@ -20,14 +22,24 @@ End If
 End Function
 
 'Function A gives the tax liability for salary less than K769.00
-Function funcA(fnsalary, resident, lodged)
+Function funcA(fnsalary, resident, lodged) As Long
+
+Dim fnATax As Long
+fnATax = 0
+
  If (resident Is True) And (lodged Is True) Then
- 'return 0
+  funcA = 0
+  
  ElseIf (resident Is False) And ((lodged Is True) Or (lodged Is False)) Then
- '0.3 * FunctionG(fnsalary)
+  fnATax = funcG(fnsalary)
+  funcA = 0.3 * fnATax
+ 
  ElseIf (resident Is True) And (lodged Is False) Then
- '0.42 * FunctionG(fnsalary)
+  fnATax = funcG(fnsalary)
+  funcA = 0.42 * fnATax
+ 
  End If
+ 
  End Function
  
  Function funcG(fnsalary)
@@ -35,14 +47,27 @@ Function funcA(fnsalary, resident, lodged)
  End Function
  
  'Function B gives the tax liability for salary greater than K769.00 and less than K1269.00
+ '. It follows the same logic as function A in all
+'respects but two. The first difference is that the number of dependants is a
+'parameter here. The second difference is that where the employee is a resident
+'and has lodged a declaration, the tax liability is a function of the salary and
+'the number of dependents, represented here as the function h(w,z)
+ 
  Function funcB(fnsalary, resident, lodged, dependents)
-  
+  Dim fnBTax
  If (resident Is True) And (lodged Is True) Then
- 'call funcH(fnsalary, dependents)
+ 'call funcH(fnsalary, dependents) and return value
+ funcB = funcH(fnsalary, dependents)
+ 
+ 'These two are the same as in funcA. It is a repetition
  ElseIf (resident Is False) And ((lodged Is True) Or (lodged Is False)) Then
- '0.3 * FunctionG(fnsalary)
+  fnATax = funcG(fnsalary)
+  funcB = 0.3 * fnBTax
+ 
  ElseIf (resident Is True) And (lodged Is False) Then
- '0.42 * FunctionG(fnsalary)
+  fnATax = funcG(fnsalary)
+  funcB = 0.42 * fnBTax
+  
  End If
  
  End Function
@@ -51,3 +76,4 @@ Function funcA(fnsalary, resident, lodged)
  
  End Function
  
+
